@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import userRoute from "./Routes/userRoute.js"
 
 const app = express();
-const url = `mongodb+srv://thaihuanlx:admin123456@cluster0.jngj10l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const url = `mongodb+srv://hth:admin123@test.s1hlsnb.mongodb.net/?retryWrites=true&w=majority&appName=Test`;
 // Kết nối MongoDB
 app.use(express.json());
 
