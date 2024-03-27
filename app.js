@@ -1,33 +1,20 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import UserController from "./controllers/userController";
-import PostController from "./controllers/PostController";
-import CommentController from "./controllers/commentController";
+import userRoute from "./Routes/userRoute.js"
 
 const app = express();
-
+const url = `mongodb+srv://thaihuanlx:admin123456@cluster0.jngj10l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 // Kết nối MongoDB
+app.use(express.json());
+
+app.use("/", userRoute);
 mongoose
-  .connect("mongodb://localhost:27017/myapp", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
+  .connect(url)
+  .then(() => console.log("Connected to database successfully"))
+  .catch((error) => console.error("Database connection failed", error));
 
 app.use(bodyParser.json());
 
-// Routes
-app.post("/register", UserController.register);
-app.post("/login", UserController.login);
 
-app.post("/post/create", PostController.create);
-app.put("/post/edit/:postId", PostController.edit);
-
-app.post("/comment/create", CommentController.create);
-app.put("/comment/edit/:commentId", CommentController.edit);
-
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(3000, () => console.log("Server running on port 3000"));
